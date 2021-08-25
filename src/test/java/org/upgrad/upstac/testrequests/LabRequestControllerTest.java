@@ -11,8 +11,7 @@ import org.upgrad.upstac.testrequests.lab.LabRequestController;
 import org.upgrad.upstac.testrequests.lab.TestStatus;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -38,17 +37,17 @@ class LabRequestControllerTest {
 
         TestRequest testRequest = getTestRequestByStatus(RequestStatus.INITIATED);
         //Implement this method
-
+        TestRequest testRequest1 = labRequestController.assignForLabTest(testRequest.getRequestId());
         //Create another object of the TestRequest method and explicitly assign this object for Lab Test using assignForLabTest() method
         // from labRequestController class. Pass the request id of testRequest object.
-
+        assertNotNull(testRequest1.getLabResult());
+        assertThat(testRequest.getRequestId(),samePropertyValuesAs(testRequest1.getRequestId()));
+        assertThat(testRequest.getStatus(),samePropertyValuesAs(testRequest1.getStatus()));
         //Use assertThat() methods to perform the following two comparisons
         //  1. the request ids of both the objects created should be same
         //  2. the status of the second object should be equal to 'LAB_TEST_IN_PROGRESS'
         // make use of assertNotNull() method to make sure that the lab result of second object is not null
         // use getLabResult() method to get the lab result
-
-
     }
 
     public TestRequest getTestRequestByStatus(RequestStatus status) {
